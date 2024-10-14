@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Show Details</title>
+    <style>
+            .tab{
+        margin-left: 25%;
+        background-color: rgba(68, 223, 146, 0.842);
+        width: 50%;
+        padding: 15px;
+        margin-top: 10%;
+
+    }
+    h2{
+        color: rgba(211, 16, 16, 0.877);
+        text-align: center;
+        font-weight: bold;
+        text-shadow: rgb(221, 221, 22) 2px 2px 2px;
+    }
+    h1{
+        color: rgb(16, 16, 143);
+        text-align: center;
+    }
+    body{
+        background-color: #c9d5ee;
+    }
+
+   table{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table td{
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  
+  
+}
+
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+  padding-top: 12px;
+  border: 1px solid #ddd;
+  padding: 8px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #441c06b2;
+  color: white;
+  text-shadow: black 2px 3px 2px;
+  font-size: 18px;
+}
+.messages{
+    font-size: 18px;
+    color: rgb(250, 15, 15);
+    margin-left: 65%;
+    margin-top: 10px;
+    
+}
+.delete-button{
+        background-color: red;
+        margin-left: 20%;
+        }
+.delete-button:hover {background-color: #920c0c}
+
+.delete-button:active {
+    color: yellow;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);}
+
+
+    </style>
+</head>
+<body>
+    <h2>Register Details</h2><br>
+
+    <div class="tab">
+    <table >
+        <thead>
+            <th>S.No</th>
+            <th>Username</th>
+            <th>Roll No</th>
+            <th>Phone No</th>
+            <th>City</th>
+            <th>Delete Details</th>
+    
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.username}}</td>
+            <td>{{i.roll_no}}</td>
+            <td>{{i.phone_no}}</td>
+            <td>{{i.city}}</td>
+
+    
+            <td>
+                <form method="post" action="{% url 'delete_user' i.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button" title="Delete">Delete
+                    </button>
+                </form>
+            </td>
+    
+            </tr>
+            {% endfor %}
+
+            <div class="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>
